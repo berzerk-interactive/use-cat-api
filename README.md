@@ -1,6 +1,6 @@
 # use-cat-api
 
-> React hook to fetch data from cat-api
+> React hook to fetch data from [the cat-api](https://thecatapi.com/)
 
 [![NPM](https://img.shields.io/npm/v/use-cat-api.svg)](https://www.npmjs.com/package/use-cat-api) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 
@@ -13,16 +13,28 @@ npm install --save use-cat-api
 ## Usage
 
 ```jsx
-import React, { Component } from 'react'
+import React from 'react'
+import { useCatApi } from 'use-cat-api'
 
-import { useMyHook } from 'use-cat-api'
+const App = () => {
+  const {loading, data} = useCatApi()
+  if (loading) {
+    return (
+      <div>
+        {loading}
+      </div>
+    )
+  } else {
+    return (
+      <div>
+      {JSON.stringify(data)}
+      </div>
+    )
+  }
 
-const Example = () => {
-  const example = useMyHook()
-  return (
-    <div>{example}</div>
-  )
 }
+export default App
+
 ```
 
 ## License

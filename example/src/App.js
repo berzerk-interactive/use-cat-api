@@ -1,12 +1,21 @@
 import React from 'react'
-import { useMyHook } from 'use-cat-api'
+import { useCatApi } from 'use-cat-api'
 
 const App = () => {
-  const example = useMyHook()
-  return (
-    <div>
-      {example}
-    </div>
-  )
+  const {loading, data} = useCatApi()
+  if (loading) {
+    return (
+      <div>
+        {loading}
+      </div>
+    )
+  } else {
+    return (
+      <div>
+      {JSON.stringify(data)}
+      </div>
+    )
+  }
+
 }
 export default App
