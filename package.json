@@ -1,6 +1,6 @@
 {
   "name": "use-cat-api",
-  "version": "1.0.0",
+  "version": "0.0.0",
   "description": "React hook to fetch data from cat-api",
   "author": "berzerk-interactive",
   "license": "MIT",
@@ -19,7 +19,8 @@
     "start": "rollup -c -w",
     "prepare": "npm run build",
     "predeploy": "cd example && npm install && npm run build",
-    "deploy": "gh-pages -d example/build"
+    "deploy": "gh-pages -d example/build",
+    "postpublish": "git push --tags"
   },
   "peerDependencies": {
     "react": "^16.9.0"
@@ -66,5 +67,8 @@
     "rollup-plugin-node-resolve": "^4.0.0",
     "rollup-plugin-peer-deps-external": "^2.2.0",
     "rollup-plugin-url": "^2.1.0"
+  },
+  "publishConfig": {
+    "access":"public"
   }
 }
