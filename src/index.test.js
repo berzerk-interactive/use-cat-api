@@ -1,29 +1,30 @@
-import { useMyHook } from './'
-import { renderHook, act } from "@testing-library/react-hooks";
 
-// mock timer using jest
-jest.useFakeTimers();
+import { renderHook } from '@testing-library/react-hooks'
+import { useCatApi } from './'
 
-describe('useMyHook', () => {
-  it('updates every second', () => {
-    const { result } = renderHook(() => useMyHook());
+describe('useCatApi', () => {
+  test('should return an object with the keys: loading, quote', () => {
+    // result.current = the value returned by our hook
+    const { result } = renderHook(() => useCatApi())
 
-    expect(result.current).toBe(0);
+    expect(result.current).toHaveProperty('loading')
+    expect(result.current).toHaveProperty('data')
+  })
 
-    // Fast-forward 1sec
-    act(() => {
-      jest.advanceTimersByTime(1000);
-    });
+  test('should set loading to true after initial call', () => {
+    const { result } = renderHook(() => useCatApi())
+    expect(result.current.loading).toBe(true)
+  })
 
-    // Check after total 1 sec
-    expect(result.current).toBe(1);
+  test('should return a data and set loading to false', async () => {
+    // Add test here
+    const { result, waitForNextUpdate } = renderHook(() => useCatApi())
 
-    // Fast-forward 1 more sec
-    act(() => {
-      jest.advanceTimersByTime(1000);
-    });
 
-    // Check after total 2 sec
-    expect(result.current).toBe(2);
+    await waitForNextUpdate()
+    expect(typeof result.current.data).toBe('object')
+    expect(result.current.data).not.toBe(null)
+    expect(result.current.data).not.toBe('')
+    expect(result.current.loading).toBe(false)
   })
 })
